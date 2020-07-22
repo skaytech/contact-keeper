@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import AlertContext from '../../context/alert/alertContext';
+import AuthContext from '../../context/auth/authContext';
 
-const Register = () => {
+const Register = (props) => {
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -10,18 +11,36 @@ const Register = () => {
   });
   const alertContext = useContext(AlertContext);
 
+  const authContext = useContext(AuthContext);
+
+  const { register, errors, clearErrors, isAuthenticated } = authContext;
+
   const { name, email, password, password2 } = user;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+
+    if (errors === 'The user already exists') {
+      alertContext.setAlert(errors, 'danger');
+    }
+    clearErrors();
+    //eslint-disable-next-line
+  }, [errors, isAuthenticated, props.history]);
 
   const onChange = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (name === '' || email === '' || password === '') {
-      alertContext.setAlert('Please enter all fields', 'danger');
-    } else if (password !== password2) {
+    if (password !== password2) {
       alertContext.setAlert('Passwords do not match', 'danger');
     } else {
-      console.log('Form Submitted');
+      register({
+        name,
+        email,
+        password,
+      });
     }
   };
 
@@ -39,6 +58,7 @@ const Register = () => {
             className='form-control'
             value={name}
             onChange={onChange}
+            required
           />
         </div>
         <div className='form-group'>
@@ -49,6 +69,7 @@ const Register = () => {
             className='form-control'
             value={email}
             onChange={onChange}
+            required
           />
         </div>
         <div className='form-group'>
@@ -59,6 +80,7 @@ const Register = () => {
             className='form-control'
             value={password}
             onChange={onChange}
+            required
           />
         </div>
         <div className='form-group'>
@@ -69,6 +91,7 @@ const Register = () => {
             className='form-control'
             value={password2}
             onChange={onChange}
+            required
           />
         </div>
         <div className='form-group'>
