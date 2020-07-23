@@ -65,8 +65,8 @@ router.post(
 
 /*
 @route api/contacts
-@desc Fetch the contacts
-@access PUBLIC
+@desc Update a contact
+@access Private
 */
 router.put('/:id', auth, async (req, res) => {
   const { name, email, phone, type } = req.body;
