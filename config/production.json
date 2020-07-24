@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb://react123:react123@contactkeeper-shard-00-00.veust.mongodb.net:27017,contactkeeper-shard-00-01.veust.mongodb.net:27017,contactkeeper-shard-00-02.veust.mongodb.net:27017/testdb?ssl=true&replicaSet=atlas-12r9h5-shard-0&authSource=admin&retryWrites=true&w=majority",
+  "jwtSecret": "secret"
+}

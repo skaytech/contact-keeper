@@ -122,7 +122,7 @@ router.delete('/:id', auth, async (req, res) => {
 
     res.json({ msg: 'Contact Deleted' });
   } catch (err) {
-    console.error(err.message());
+    console.error(err);
     res.sendStatus(500).json({ msg: 'Server Error' });
   }
 });
