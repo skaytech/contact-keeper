@@ -65,7 +65,6 @@ export default (state, action) => {
       return {
         ...state,
         filtered: state.contacts.filter(({ name, email }) => {
-          console.log(action.payload);
           return (
             name.toLowerCase().includes(action.payload.toLowerCase()) ||
             email.toLowerCase().includes(action.payload.toLowerCase())
